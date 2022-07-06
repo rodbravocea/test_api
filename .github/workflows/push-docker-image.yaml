@@ -49,6 +49,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    needs:
+    - build-and-push-image
 
     steps:
       - name: Unit tests
@@ -64,7 +66,7 @@ jobs:
       contents: read
       packages: write
     needs:
-    - build-and-push-image
+    - Testing
 
     steps:
       - name: Get short SHA
@@ -72,7 +74,7 @@ jobs:
         id: short
         run: echo "::set-output name=sha7::$(echo ${{ github.sha }} | cut -c1-7)"
       - name: Apply Kubernetes
-        run: ls
+        run: kubectl apply -f config/
       - name: deploy to k8s
         run: |
           kubectl set env deployment/test-api GIT_SHA=${{steps.short.outputs.sha7}}
