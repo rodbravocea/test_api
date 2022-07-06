@@ -2,6 +2,6 @@ import {get} from '@loopback/rest';
 export class HelloController {
   @get('/hello')
   hello(): string {
-    return 'Test Previred !!!!!!! !!';
+    return 'Test Maxi!!!!!!!!----------------';
   }
 }
