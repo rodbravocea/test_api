@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-api
+  labels:
+    app: test-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-api
+  template:
+    metadata:
+      labels:
+        app: test-api
+    spec:
+      containers:
+      - name: test-api
+        image: ghcr.io/rodbravocea/test_api:main
+        ports:
+        - containerPort: 3000
+        env:
+          - name: GIT_SHA
+            value: "none"
+        imagePullPolicy: Always
